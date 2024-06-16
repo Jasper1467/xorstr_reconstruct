@@ -3,11 +3,6 @@
 #include <cstring>
 #include <iostream>
 
-#ifdef __TIME__
-#undef __TIME__
-#define __TIME__ "12:34:56"
-#endif
-
 #include "external/xorstr.hpp"
 
 // FNV-1a hash constants
@@ -52,9 +47,8 @@ int main()
     const char* encrypted_str = xorstr_("test");
     size_t size = sizeof(encrypted_str) - 1; // Excluding null terminator
 
-    // Generate the key (replace "__TIME__" with the actual time string used
     // during encryption)
-    uint64_t key = generate_key64("12:34:56", 0);
+    uint64_t key = generate_key64(__TIME__, 0);
 
     // Decrypt the string
     decrypt_string(encrypted_str, size, key);
